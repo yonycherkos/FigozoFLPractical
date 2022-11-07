@@ -43,7 +43,7 @@ class PetCard extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'Cat${index + 1}',
+                  name,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,

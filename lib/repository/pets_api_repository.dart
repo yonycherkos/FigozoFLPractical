@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:figozo_fl_practical/models/pet_info.dart';
+import 'package:figozo_fl_practical/model/pet_info.dart';
 
 class PetsApiRepository {
   Dio? dio;
@@ -17,35 +17,35 @@ class PetsApiRepository {
     }
   }
 
-  Future<List<PetInfo>> getCatsList() async {
+  Future<List<PetInfo>> fetchCatsList() async {
     try {
       var response = await dio!.get('/77290441-d8e9-483f-80a2-a336a3364bbe');
-      var petsList = <PetInfo>[];
+      var catsList = <PetInfo>[];
       if (response.statusCode == 200) {
-        final responseJson = response.data["Response"];
-        petsList = List<PetInfo>.from(
-          responseJson['cats'].map((petInfo) => PetInfo.fromJson(petInfo)),
+        final catsJson = response.data['cats'];
+        catsList = List<PetInfo>.from(
+          catsJson.map((cat) => PetInfo.fromJson(cat)),
         );
       }
-      return petsList;
+      return catsList;
     } catch (e) {
-      rethrow;
+      return [];
     }
   }
 
-  Future<List<PetInfo>> getDogsList() async {
+  Future<List<PetInfo>> fetchDogsList() async {
     try {
       var response = await dio!.get('/442a4801-5715-474a-b6fd-7548ab2f8d20');
-      var petsList = <PetInfo>[];
+      var dogsList = <PetInfo>[];
       if (response.statusCode == 200) {
-        final responseJson = response.data["Response"];
-        petsList = List<PetInfo>.from(
-          responseJson['dogs'].map((petInfo) => PetInfo.fromJson(petInfo)),
+        final dogsJson = response.data['dogs'];
+        dogsList = List<PetInfo>.from(
+          dogsJson.map((dogInfo) => PetInfo.fromJson(dogInfo)),
         );
       }
-      return petsList;
+      return dogsList;
     } catch (e) {
-      rethrow;
+      return [];
     }
   }
 }

@@ -1,14 +1,11 @@
+import 'package:figozo_fl_practical/model/pet_info.dart';
 import 'package:flutter/material.dart';
 
 class PetDetailPage extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String description;
+  final PetInfo petInfo;
   const PetDetailPage({
     super.key,
-    required this.imageUrl,
-    required this.name,
-    required this.description,
+    required this.petInfo,
   });
 
   @override
@@ -35,7 +32,7 @@ class PetDetailPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    imageUrl,
+                    petInfo.photo,
                     height: screenSize.height * 0.35,
                     width: screenSize.width - 24,
                     fit: BoxFit.cover,
@@ -44,14 +41,14 @@ class PetDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 36),
               Text(
-                name,
+                petInfo.name,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 24),
-              Text(description),
+              Text(petInfo.description),
             ],
           ),
         ),
