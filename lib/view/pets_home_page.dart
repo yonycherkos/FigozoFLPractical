@@ -26,18 +26,7 @@ class _PetsHomePageState extends State<PetsHomePage>
 
     return Scaffold(
       appBar: AppBar(
-        bottom: TabBar(
-          controller: _tabController,
-          labelStyle: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-          tabs: const [
-            Tab(text: 'Cats'),
-            Tab(text: 'Dogs'),
-          ],
-        ),
-        title: const Text('Pets'),
+        flexibleSpace: SafeArea(child: buildTabBar()),
       ),
       body: TabBarView(
         controller: _tabController,
@@ -80,6 +69,23 @@ class _PetsHomePageState extends State<PetsHomePage>
             ),
           ),
           const Icon(Icons.directions_transit, size: 350),
+        ],
+      ),
+    );
+  }
+
+  Widget buildTabBar() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: TabBar(
+        controller: _tabController,
+        labelStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
+        tabs: const [
+          Tab(text: 'Cats'),
+          Tab(text: 'Dogs'),
         ],
       ),
     );
