@@ -4,10 +4,14 @@ class PetCard extends StatelessWidget {
   const PetCard({
     Key? key,
     required this.index,
+    required this.imageUrl,
+    required this.name,
     required this.cardWidth,
   }) : super(key: key);
 
   final int index;
+  final String imageUrl;
+  final String name;
   final double cardWidth;
 
   @override
@@ -20,7 +24,7 @@ class PetCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-              'https://picsum.photos/id/237/200/300',
+              imageUrl,
               width: cardWidth,
               fit: BoxFit.fitWidth,
             ),
