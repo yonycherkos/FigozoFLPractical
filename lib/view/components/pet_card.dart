@@ -6,13 +6,13 @@ class PetCard extends StatelessWidget {
     required this.index,
     required this.imageUrl,
     required this.name,
-    required this.cardWidth,
+    required this.width,
   }) : super(key: key);
 
   final int index;
   final String imageUrl;
   final String name;
-  final double cardWidth;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class PetCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
               imageUrl,
-              width: cardWidth,
+              width: width,
               fit: BoxFit.fitWidth,
             ),
           ),

@@ -23,6 +23,7 @@ class _PetsHomePageState extends State<PetsHomePage>
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final cardWidth = screenWidth / 2 - 16;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,42 +32,39 @@ class _PetsHomePageState extends State<PetsHomePage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(8, 24, 8, 0),
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: 12,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-              ),
-              itemBuilder: (context, index) {
-                var cardWidth = screenWidth / 2 - 12;
-                var imageUrl = 'https://picsum.photos/id/237/200/300';
-                var description =
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return PetDetailPage(
-                        imageUrl: imageUrl,
-                        name: 'Cat${index + 1}',
-                        description: description,
-                      );
-                    }));
-                  },
-                  child: PetCard(
-                    index: index,
-                    imageUrl: imageUrl,
-                    name: 'Cat${index + 1}',
-                    cardWidth: cardWidth,
-                  ),
-                );
-              },
+          GridView.builder(
+            shrinkWrap: true,
+            itemCount: 12,
+            padding: const EdgeInsets.fromLTRB(8, 24, 8, 50),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 0.8,
             ),
+            itemBuilder: (context, index) {
+              var imageUrl = 'https://picsum.photos/id/237/200/300';
+              var description =
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return PetDetailPage(
+                      imageUrl: imageUrl,
+                      name: 'Cat${index + 1}',
+                      description: description,
+                    );
+                  }));
+                },
+                child: PetCard(
+                  index: index,
+                  imageUrl: imageUrl,
+                  name: 'Cat${index + 1}',
+                  width: cardWidth,
+                ),
+              );
+            },
           ),
           const Icon(Icons.directions_transit, size: 350),
         ],
