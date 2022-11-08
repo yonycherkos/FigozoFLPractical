@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:figozo_fl_practical/model/pet_info.dart';
-import 'package:path_provider/path_provider.dart';
 
 class PetsApiRepository {
   Dio? _dio;
   final baseUrl = 'https://mocki.io/v1';
+  final Options _cacheOptions = buildCacheOptions(
+    const Duration(days: 7),
+    forceRefresh: true,
+  );
 
   PetsApiRepository() {
     if (_dio == null) {
@@ -17,33 +19,17 @@ class PetsApiRepository {
         receiveTimeout: 60 * 1000, // 60 seconds
       );
       _dio = Dio(options);
-      initChache();
+      DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
+      _dio!.interceptors.add(dioCacheManager.interceptor);
     }
-  }
-
-  Future<void> initChache() async {
-    var cacheDir = await getApplicationDocumentsDirectory();
-    var cacheStore = HiveCacheStore(cacheDir.path, hiveBoxName: 'pets');
-    var customCacheOptons = CacheOptions(
-      store: cacheStore,
-      policy: CachePolicy.forceCache,
-      priority: CachePriority.high,
-      maxStale: const Duration(days: 7),
-      hitCacheOnErrorExcept: [401, 404],
-      keyBuilder: (request) {
-        return request.uri.toString();
-      },
-      allowPostMethod: false,
-    );
-
-    _dio!.interceptors.add(
-      DioCacheInterceptor(options: customCacheOptons),
-    );
   }
 
   Future<List<PetInfo>> fetchCatsList() async {
     try {
-      var response = await _dio!.get('/77290441-d8e9-483f-80a2-a336a3364bbe');
+      var response = await _dio!.get(
+        '/77290441-d8e9-483f-80a2-a336a3364bbe',
+        options: _cacheOptions,
+      );
       var catsList = <PetInfo>[];
       if (response.statusCode == 200) {
         final catsJson = response.data['cats'];
@@ -59,7 +45,10 @@ class PetsApiRepository {
 
   Future<List<PetInfo>> fetchDogsList() async {
     try {
-      var response = await _dio!.get('/442a4801-5715-474a-b6fd-7548ab2f8d20');
+      var response = await _dio!.get(
+        '/442a4801-5715-474a-b6fd-7548ab2f8d20',
+        options: _cacheOptions,
+      );
       var dogsList = <PetInfo>[];
       if (response.statusCode == 200) {
         final dogsJson = response.data['dogs'];

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:figozo_fl_practical/model/pet_info.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -33,8 +34,8 @@ class PetDetailsPage extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      petInfo.photo,
+                    child: CachedNetworkImage(
+                      imageUrl: petInfo.photo,
                       width: 400,
                       fit: BoxFit.fitWidth,
                     ),
@@ -65,12 +66,13 @@ class PetDetailsPage extends StatelessWidget {
             )
           : Padding(
               padding: const EdgeInsets.all(16),
-              child: ListView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      petInfo.photo,
+                    child: CachedNetworkImage(
+                      imageUrl: petInfo.photo,
                       width: 300,
                       fit: BoxFit.fitWidth,
                     ),
