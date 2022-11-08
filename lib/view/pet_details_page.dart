@@ -1,9 +1,11 @@
 import 'package:figozo_fl_practical/model/pet_info.dart';
 import 'package:flutter/material.dart';
 
-class PetDetailPage extends StatelessWidget {
+class PetDetailsPage extends StatelessWidget {
+  static const String routeName = '/details';
+
   final PetInfo petInfo;
-  const PetDetailPage({
+  const PetDetailsPage({
     super.key,
     required this.petInfo,
   });

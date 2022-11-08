@@ -1,13 +1,14 @@
+import 'package:figozo_fl_practical/view/pet_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:figozo_fl_practical/model/pet_info.dart';
 import 'package:figozo_fl_practical/controller/pets_controller.dart';
-import 'package:figozo_fl_practical/view/pet_detail_page.dart';
 
 import 'components/pet_card.dart';
 
 class PetsHomePage extends StatefulWidget {
+  static const String routeName = '/home';
   const PetsHomePage({super.key});
 
   @override
@@ -93,7 +94,7 @@ class PetsGridView extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return PetDetailPage(petInfo: petInfo);
+                  return PetDetailsPage(petInfo: petInfo);
                 },
               ),
             );
