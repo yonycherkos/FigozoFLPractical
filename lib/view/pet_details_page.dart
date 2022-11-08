@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:figozo_fl_practical/model/pet_info.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class PetDetailsPage extends StatelessWidget {
   static const String routeName = '/details';
@@ -12,7 +13,7 @@ class PetDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
+    final responsiveWrapper = ResponsiveWrapper.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,37 +25,73 @@ class PetDetailsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(12, 36, 12, 50),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(
-                    petInfo.photo,
-                    height: screenSize.height * 0.35,
-                    width: screenSize.width - 24,
-                    fit: BoxFit.cover,
+      body: responsiveWrapper.isLargerThan(MOBILE)
+          ? Padding(
+              padding: const EdgeInsets.all(24),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      petInfo.photo,
+                      width: 400,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 24),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          petInfo.name,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Wrap(
+                          children: [
+                            Text(petInfo.description),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 36),
-              Text(
-                petInfo.name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(16),
+              child: ListView(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      petInfo.photo,
+                      width: 300,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    petInfo.name,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Wrap(
+                    children: [
+                      Text(petInfo.description),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(height: 24),
-              Text(petInfo.description),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
