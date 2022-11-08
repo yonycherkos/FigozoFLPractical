@@ -17,10 +17,10 @@ class PetsController extends GetxController {
   }
 
   void getCatsList() async {
-    // catsList(await _petsApiRepository.fetchCatsList());
+    catsList(await _petsApiRepository.fetchCatsList());
   }
 
   void getDogsList() async {
-    // dogsList(await _petsApiRepository.fetchDogsList());
+    dogsList(await _petsApiRepository.fetchDogsList());
   }
 }

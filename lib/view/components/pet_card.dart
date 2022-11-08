@@ -31,16 +31,9 @@ class PetCard extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 30,
+            child: SizedBox(
+              height: width * 0.1,
               width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ),
-              ),
               child: Center(
                 child: Text(
                   name,

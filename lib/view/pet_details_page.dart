@@ -1,5 +1,5 @@
-import 'package:figozo_fl_practical/model/pet_info.dart';
 import 'package:flutter/material.dart';
+import 'package:figozo_fl_practical/model/pet_info.dart';
 
 class PetDetailsPage extends StatelessWidget {
   static const String routeName = '/details';
