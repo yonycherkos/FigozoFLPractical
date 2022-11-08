@@ -1,7 +1,5 @@
 import 'package:figozo_fl_practical/routes.dart';
-import 'package:figozo_fl_practical/view/pet_details_page.dart';
 import 'package:flutter/material.dart';
-import 'package:figozo_fl_practical/view/pets_home_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
@@ -22,7 +20,6 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: Routes.onGenerateRoute,
       builder: (context, child) => ResponsiveWrapper.builder(
         BouncingScrollWrapper.builder(context, child!),
-        maxWidth: 1200,
         minWidth: 450,
         defaultScale: true,
         breakpoints: [

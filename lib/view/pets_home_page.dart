@@ -1,11 +1,8 @@
-import 'package:figozo_fl_practical/view/pet_details_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:figozo_fl_practical/model/pet_info.dart';
+import 'package:get/get.dart' hide Condition;
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:figozo_fl_practical/controller/pets_controller.dart';
-
-import 'components/pet_card.dart';
+import 'package:figozo_fl_practical/view/components/pets_gridview.dart';
 
 class PetsHomePage extends StatefulWidget {
   static const String routeName = '/home';
@@ -46,67 +43,52 @@ class _PetsHomePageState extends State<PetsHomePage>
   }
 
   Widget buildTabBar() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double tabBarWidth = ResponsiveValue(
+      context,
+      defaultValue: screenWidth,
+      valueWhen: const [
+        Condition.largerThan(
+          name: TABLET,
+          value: 500.0,
+        )
+      ],
+    ).value!;
+
     return Align(
       alignment: Alignment.bottomCenter,
-      child: TabBar(
-        controller: _tabController,
-        labelStyle: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),
-        tabs: const [
-          Tab(text: 'Cats'),
-          Tab(text: 'Dogs'),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const ResponsiveVisibility(
+            hiddenWhen: [
+              Condition.smallerThan(name: DESKTOP),
+            ],
+            child: Padding(
+              padding: EdgeInsets.only(left: 36),
+              child: Icon(
+                Icons.pets,
+                size: 28,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: tabBarWidth,
+            child: TabBar(
+              controller: _tabController,
+              labelStyle: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+              tabs: const [
+                Tab(text: 'Cats'),
+                Tab(text: 'Dogs'),
+              ],
+            ),
+          ),
         ],
       ),
-    );
-  }
-}
-
-class PetsGridView extends StatelessWidget {
-  const PetsGridView({
-    Key? key,
-    required this.petsList,
-  }) : super(key: key);
-  final List<PetInfo> petsList;
-
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final cardWidth = screenWidth / 2 - 16;
-
-    return GridView.builder(
-      shrinkWrap: true,
-      itemCount: petsList.length,
-      padding: const EdgeInsets.fromLTRB(8, 24, 8, 50),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 8.0,
-        mainAxisSpacing: 8.0,
-        childAspectRatio: 0.8,
-      ),
-      itemBuilder: (context, index) {
-        var petInfo = petsList[index];
-        return GestureDetector(
-          onTap: () {
-            // TODO: Use getx.go()
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return PetDetailsPage(petInfo: petInfo);
-                },
-              ),
-            );
-          },
-          child: PetCard(
-            index: index,
-            imageUrl: petInfo.photo,
-            name: petInfo.name,
-            width: cardWidth,
-          ),
-        );
-      },
     );
   }
 }
