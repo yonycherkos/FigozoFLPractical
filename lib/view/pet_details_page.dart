@@ -1,7 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:figozo_fl_practical/model/pet_info.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:figozo_fl_practical/model/pet_info.dart';
 
 class PetDetailsPage extends StatelessWidget {
   static const String routeName = '/details';
@@ -34,11 +35,17 @@ class PetDetailsPage extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: CachedNetworkImage(
-                      imageUrl: petInfo.photo,
-                      width: 400,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    child: kIsWeb
+                        ? Image.network(
+                            petInfo.photo,
+                            width: 400,
+                            fit: BoxFit.fitWidth,
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: petInfo.photo,
+                            width: 400,
+                            fit: BoxFit.fitWidth,
+                          ),
                   ),
                   const SizedBox(width: 24),
                   Expanded(
@@ -71,11 +78,17 @@ class PetDetailsPage extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: CachedNetworkImage(
-                      imageUrl: petInfo.photo,
-                      width: 300,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    child: kIsWeb
+                        ? Image.network(
+                            petInfo.photo,
+                            width: 300,
+                            fit: BoxFit.fitWidth,
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: petInfo.photo,
+                            width: 300,
+                            fit: BoxFit.fitWidth,
+                          ),
                   ),
                   const SizedBox(height: 24),
                   Text(

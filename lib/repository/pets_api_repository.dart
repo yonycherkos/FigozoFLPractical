@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:figozo_fl_practical/model/pet_info.dart';
@@ -19,8 +20,10 @@ class PetsApiRepository {
         receiveTimeout: 60 * 1000, // 60 seconds
       );
       _dio = Dio(options);
-      DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
-      _dio!.interceptors.add(dioCacheManager.interceptor);
+      if (!kIsWeb) {
+        DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
+        _dio!.interceptors.add(dioCacheManager.interceptor);
+      }
     }
   }
 
@@ -28,7 +31,7 @@ class PetsApiRepository {
     try {
       var response = await _dio!.get(
         '/77290441-d8e9-483f-80a2-a336a3364bbe',
-        options: _cacheOptions,
+        options: kIsWeb ? _cacheOptions : null,
       );
       var catsList = <PetInfo>[];
       if (response.statusCode == 200) {
@@ -47,7 +50,7 @@ class PetsApiRepository {
     try {
       var response = await _dio!.get(
         '/442a4801-5715-474a-b6fd-7548ab2f8d20',
-        options: _cacheOptions,
+        options: kIsWeb ? _cacheOptions : null,
       );
       var dogsList = <PetInfo>[];
       if (response.statusCode == 200) {

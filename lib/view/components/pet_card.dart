@@ -1,5 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PetCard extends StatelessWidget {
   const PetCard({
@@ -24,16 +25,17 @@ class PetCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            // child: Image.network(
-            //   imageUrl,
-            //   width: width,
-            //   fit: BoxFit.fitWidth,
-            // ),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              width: width,
-              fit: BoxFit.fitWidth,
-            ),
+            child: kIsWeb
+                ? Image.network(
+                    imageUrl,
+                    width: width,
+                    fit: BoxFit.fitWidth,
+                  )
+                : CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    width: width,
+                    fit: BoxFit.fitWidth,
+                  ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
