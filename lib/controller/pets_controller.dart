@@ -5,22 +5,24 @@ import 'package:figozo_fl_practical/model/pet_info.dart';
 class PetsController extends GetxController {
   final PetsApiRepository _petsApiRepository = PetsApiRepository();
 
-  // TODO: Add loading state manager
+  late RxBool isLoading = false.obs;
   late RxList<PetInfo> catsList = <PetInfo>[].obs;
   late RxList<PetInfo> dogsList = <PetInfo>[].obs;
 
   @override
-  void onInit() {
-    getCatsList();
-    getDogsList();
+  void onInit() async {
+    isLoading(true);
+    await getCatsList();
+    await getDogsList();
+    isLoading(false);
     super.onInit();
   }
 
-  void getCatsList() async {
+  Future<void> getCatsList() async {
     catsList(await _petsApiRepository.fetchCatsList());
   }
 
-  void getDogsList() async {
+  Future<void> getDogsList() async {
     dogsList(await _petsApiRepository.fetchDogsList());
   }
 }

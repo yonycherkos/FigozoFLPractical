@@ -41,8 +41,16 @@ class _PetsHomePageState extends State<PetsHomePage>
         return TabBarView(
           controller: _tabController,
           children: [
-            PetsGridView(petsList: petsController.catsList.toList()),
-            PetsGridView(petsList: petsController.dogsList.toList()),
+            petsController.isLoading.value
+                ? const Center(
+                    child: CircularProgressIndicator(color: Colors.teal),
+                  )
+                : PetsGridView(petsList: petsController.catsList.toList()),
+            petsController.isLoading.value
+                ? const Center(
+                    child: CircularProgressIndicator(color: Colors.teal),
+                  )
+                : PetsGridView(petsList: petsController.dogsList.toList()),
           ],
         );
       }),
