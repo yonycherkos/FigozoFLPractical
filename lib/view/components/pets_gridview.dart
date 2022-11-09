@@ -23,11 +23,10 @@ class PetsGridView extends StatelessWidget {
       itemCount: petsList.length,
       padding: EdgeInsets.all(padding),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount:
-            (responsiveWrapper.isDesktop || responsiveWrapper.isTablet) ? 3 : 2,
+        crossAxisCount: responsiveWrapper.isLargerThan(TABLET) ? 3 : 2,
         crossAxisSpacing: padding,
         mainAxisSpacing: padding,
-        childAspectRatio: 0.8,
+        childAspectRatio: 0.75,
       ),
       itemBuilder: (context, index) {
         var petInfo = petsList[index];
@@ -44,9 +43,7 @@ class PetsGridView extends StatelessWidget {
             );
           },
           child: PetCard(
-            index: index,
-            imageUrl: petInfo.photo,
-            name: petInfo.name,
+            petInfo: petInfo,
             width: cardWidth,
           ),
         );

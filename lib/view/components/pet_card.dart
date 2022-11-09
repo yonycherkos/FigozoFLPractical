@@ -1,3 +1,4 @@
+import 'package:figozo_fl_practical/model/pet_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -5,15 +6,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 class PetCard extends StatelessWidget {
   const PetCard({
     Key? key,
-    required this.index,
-    required this.imageUrl,
-    required this.name,
+    required this.petInfo,
     required this.width,
   }) : super(key: key);
 
-  final int index;
-  final String imageUrl;
-  final String name;
+  final PetInfo petInfo;
   final double width;
 
   @override
@@ -27,29 +24,41 @@ class PetCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: kIsWeb
                 ? Image.network(
-                    imageUrl,
+                    petInfo.photo,
                     width: width,
                     fit: BoxFit.fitWidth,
                   )
                 : CachedNetworkImage(
-                    imageUrl: imageUrl,
+                    imageUrl: petInfo.photo,
                     width: width,
                     fit: BoxFit.fitWidth,
                   ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              height: width * 0.1,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              height: 60,
               width: double.infinity,
               child: Center(
-                child: Text(
-                  name,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Name: ${petInfo.name}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Age: ${petInfo.age}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:figozo_fl_practical/view/components/pet_description.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:responsive_framework/responsive_framework.dart';
@@ -49,23 +50,9 @@ class PetDetailsPage extends StatelessWidget {
                   ),
                   const SizedBox(width: 24),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          petInfo.name,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        Wrap(
-                          children: [
-                            Text(petInfo.description),
-                          ],
-                        ),
-                      ],
+                    child: PetDescription(
+                      petInfo: petInfo,
+                      alignment: CrossAxisAlignment.start,
                     ),
                   ),
                 ],
@@ -91,19 +78,7 @@ class PetDetailsPage extends StatelessWidget {
                           ),
                   ),
                   const SizedBox(height: 24),
-                  Text(
-                    petInfo.name,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Wrap(
-                    children: [
-                      Text(petInfo.description),
-                    ],
-                  ),
+                  PetDescription(petInfo: petInfo),
                 ],
               ),
             ),
