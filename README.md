@@ -13,7 +13,7 @@ This is a flutter responsive app for mobile and web. It fetch mockup data from R
 
 ## Demo
 
-![pets_demo](https://user-images.githubusercontent.com/45253598/200736306-9e58810d-003f-4a96-9d1c-22d68611fbcb.gif)
+![app_demo](https://user-images.githubusercontent.com/45253598/200738236-827f6584-76cc-49e0-b471-7e48fddf5a23.gif)
 
 ## Screenshots
 
