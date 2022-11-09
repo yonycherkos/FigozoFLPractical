@@ -17,6 +17,8 @@ class PetDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsiveWrapper = ResponsiveWrapper.of(context);
+    final double imageWidth =
+        responsiveWrapper.isLargerThan(TABLET) ? 600 : 450;
 
     return Scaffold(
       appBar: AppBar(
@@ -39,12 +41,12 @@ class PetDetailsPage extends StatelessWidget {
                     child: kIsWeb
                         ? Image.network(
                             petInfo.photo,
-                            width: 400,
+                            width: imageWidth,
                             fit: BoxFit.fitWidth,
                           )
                         : CachedNetworkImage(
                             imageUrl: petInfo.photo,
-                            width: 400,
+                            width: imageWidth,
                             fit: BoxFit.fitWidth,
                           ),
                   ),
@@ -68,12 +70,12 @@ class PetDetailsPage extends StatelessWidget {
                     child: kIsWeb
                         ? Image.network(
                             petInfo.photo,
-                            width: 300,
+                            width: imageWidth,
                             fit: BoxFit.fitWidth,
                           )
                         : CachedNetworkImage(
                             imageUrl: petInfo.photo,
-                            width: 300,
+                            width: imageWidth,
                             fit: BoxFit.fitWidth,
                           ),
                   ),

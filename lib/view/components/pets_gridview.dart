@@ -26,7 +26,7 @@ class PetsGridView extends StatelessWidget {
         crossAxisCount: responsiveWrapper.isLargerThan(TABLET) ? 3 : 2,
         crossAxisSpacing: padding,
         mainAxisSpacing: padding,
-        childAspectRatio: 0.75,
+        childAspectRatio: 0.9,
       ),
       itemBuilder: (context, index) {
         var petInfo = petsList[index];
