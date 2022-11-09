@@ -1,5 +1,6 @@
 import 'package:figozo_fl_practical/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Figozo',
       theme: ThemeData(
         primarySwatch: Colors.teal,

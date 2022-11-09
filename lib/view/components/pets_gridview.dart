@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:figozo_fl_practical/model/pet_info.dart';
 import 'package:figozo_fl_practical/view/components/pet_card.dart';
 import 'package:figozo_fl_practical/view/pet_details_page.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/instance_manager.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 class PetsGridView extends StatelessWidget {
@@ -32,15 +34,7 @@ class PetsGridView extends StatelessWidget {
         var petInfo = petsList[index];
         return GestureDetector(
           onTap: () {
-            // TODO: Use getx.go()
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return PetDetailsPage(petInfo: petInfo);
-                },
-              ),
-            );
+            Get.to(() => PetDetailsPage(petInfo: petInfo));
           },
           child: PetCard(
             petInfo: petInfo,
