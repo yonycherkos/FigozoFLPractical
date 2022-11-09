@@ -20,28 +20,31 @@ class PetsGridView extends StatelessWidget {
     double padding = responsiveWrapper.isDesktop ? 64 : 12;
     final cardWidth = screenWidth / 2 - padding;
 
-    return GridView.builder(
-      shrinkWrap: true,
-      itemCount: petsList.length,
-      padding: EdgeInsets.all(padding),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: responsiveWrapper.isLargerThan(TABLET) ? 3 : 2,
-        crossAxisSpacing: padding,
-        mainAxisSpacing: padding,
-        childAspectRatio: 0.9,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 50),
+      child: GridView.builder(
+        shrinkWrap: true,
+        itemCount: petsList.length,
+        padding: EdgeInsets.all(padding),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: responsiveWrapper.isLargerThan(TABLET) ? 3 : 2,
+          crossAxisSpacing: padding,
+          mainAxisSpacing: padding,
+          childAspectRatio: 0.9,
+        ),
+        itemBuilder: (context, index) {
+          var petInfo = petsList[index];
+          return GestureDetector(
+            onTap: () {
+              Get.to(() => PetDetailsPage(petInfo: petInfo));
+            },
+            child: PetCard(
+              petInfo: petInfo,
+              width: cardWidth,
+            ),
+          );
+        },
       ),
-      itemBuilder: (context, index) {
-        var petInfo = petsList[index];
-        return GestureDetector(
-          onTap: () {
-            Get.to(() => PetDetailsPage(petInfo: petInfo));
-          },
-          child: PetCard(
-            petInfo: petInfo,
-            width: cardWidth,
-          ),
-        );
-      },
     );
   }
 }
