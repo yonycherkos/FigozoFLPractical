@@ -20,8 +20,15 @@ class _PetsHomePageState extends State<PetsHomePage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
     petsController.onInit();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.index == 0) {
+        if (petsController.catsList.isEmpty) petsController.getCatsList();
+      } else {
+        if (petsController.catsList.isEmpty) petsController.getDogsList();
+      }
+    });
   }
 
   @override
